@@ -3,11 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace AspNetMvc.QuickStart.Controllers
 {
 	public class HomeController : Controller
 	{
+		public ActionResult Login()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Login(string UserName, string Password)
+		{
+			if (UserName == "admin" && Password == "admin")
+			{
+				FormsAuthentication.RedirectFromLoginPage(UserName, false);
+			}
+			return View();
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Logout()
+		{
+			FormsAuthentication.SignOut();
+			return RedirectToAction("Index", "Home");
+		}
+
 		public ActionResult Index()
 		{
 			return View();
@@ -26,5 +51,7 @@ namespace AspNetMvc.QuickStart.Controllers
 
 			return View();
 		}
+
+
 	}
 }

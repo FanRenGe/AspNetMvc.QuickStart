@@ -23,6 +23,9 @@ namespace AspNetMvc.QuickStart.Models
 		public string Major { get; set; }
 
 		public DateTime EntranceDate { get; set; }
+
+		[StringLength(500)]
+		public string Remark { get; set; }
 	}
 
 	public class StudentDbContext : DbContext
